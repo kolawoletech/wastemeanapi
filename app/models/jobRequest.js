@@ -23,7 +23,7 @@ const JobRequestSchema = new mongoose.Schema(
             type: String
         },
         numbers : {
-            type: Array,
+            type: String,
             required : true
         },
     },

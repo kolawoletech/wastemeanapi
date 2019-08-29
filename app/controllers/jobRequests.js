@@ -149,26 +149,19 @@ const jobRequestExistsExcludingItself = async (id, name) => {
       const doesJobRequestExists = await jobRequestExists(req.jobRequestId)
       if (!doesJobRequestExists) {
         res.status(201).json(await db.createItem(req, model))
-        var apiKey="";
+        var apiKey="NCWtHIg9RJq-Q9lhMC8iYQ==";
+
+        console.log("Title: " + req.title + " ID: " + req.id + " Waste Type: " + req.wasteType + " Dustbin Number: " + req.dustbinNumber)
 
         const request = require('request');
-        request('https://platform.clickatell.com/messages/http/send?apiKey='+ apiKey +'&to='+req.numbers + '&content=Test+message+text', function (error, response, body) {
+ 
+        request('https://platform.clickatell.com/messages/http/send?apiKey='+ apiKey +'&to='+req.numbers + '&content=' + " Title: " + req.title + ". ID: " + req.id + ".  Waste Type: " + req.wasteType + ". Dustbin Number: " + req.dustbinNumber, function (error, response, body) {
           console.error('error:', error); // Print the error if one occurred
           console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
           console.log('body:', body); // Print the HTML for the Google homepage.
         });
-     
-      
-          console.log("Sending to: " +  JSON.stringify(req.numbers));
   
-         
-        
-
-  
-
-
-
-
+        console.log(req.numbers.split('\\'));
       }
     } catch (error) {
       utils.handleError(res, error)
