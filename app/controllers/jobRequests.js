@@ -151,17 +151,31 @@ const jobRequestExistsExcludingItself = async (id, name) => {
         res.status(201).json(await db.createItem(req, model))
         var apiKey="NCWtHIg9RJq-Q9lhMC8iYQ==";
 
-        console.log("Title: " + req.title + " ID: " + req.id + " Waste Type: " + req.wasteType + " Dustbin Number: " + req.dustbinNumber)
 
         const request = require('request');
  
-        request('https://platform.clickatell.com/messages/http/send?apiKey='+ apiKey +'&to='+req.numbers + '&content=' + " Title: " + req.title + ". ID: " + req.id + ".  Waste Type: " + req.wasteType + ". Dustbin Number: " + req.dustbinNumber, function (error, response, body) {
-          console.error('error:', error); // Print the error if one occurred
-          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          console.log('body:', body); // Print the HTML for the Google homepage.
-        });
+
   
-        console.log(req.numbers.split('\\'));
+        console.log(req.numbers);
+
+        var arrayofPhoneNumbers = req.numbers.split('\\')[0];
+        console.log("SAT" + arrayofPhoneNumbers.split(','))
+
+        for (var i = 0; i < arrayofPhoneNumbers.split(',').length; i++) {
+          console.log("LOgging: " + arrayofPhoneNumbers.split(',')[i].replace(/[\[\]']+/g,''))
+
+          let courierNumber = arrayofPhoneNumbers.split(',')[i].replace(/[\[\]']+/g,'')
+          console.log("Title: " + req.title + ". ID: " + req.id + ". Waste Type: " + req.wasteType + " Dustbin Number: " + req.dustbinNumber + "Courier Number: " + courierNumber)
+
+          request('https://platform.clickatell.com/messages/http/send?apiKey='+ apiKey +'&to='+courierNumber + '&content=' + " Title: " + req.title + ". ID: " + req.id + ".  Waste Type: " + req.wasteType + ". Dustbin Number: " + req.dustbinNumber, function (error, response, body) {
+            console.error('error:', error); // Print the error if one occurred
+            console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+            console.log('body:', body); // Print the HTML for the Google homepage.
+          });  
+        }
+      
+
+
       }
     } catch (error) {
       utils.handleError(res, error)
