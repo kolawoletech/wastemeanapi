@@ -149,7 +149,7 @@ const jobRequestExistsExcludingItself = async (id, name) => {
       const doesJobRequestExists = await jobRequestExists(req.jobRequestId)
       if (!doesJobRequestExists) {
         res.status(201).json(await db.createItem(req, model))
-        var apiKey="NCWtHIg9RJq-Q9lhMC8iYQ==";
+        var apiKey="";
 
 
         const request = require('request');
